@@ -13,7 +13,7 @@ import android.widget.ImageView;
 /**
  * Created by lenovo on 7/3/2014.
  */
-public class OpacityAdapter extends BaseAdapter {
+public class AlphaAdapter extends BaseAdapter {
 
     Context context;
     LayoutInflater inflater;
@@ -22,7 +22,7 @@ public class OpacityAdapter extends BaseAdapter {
     Bitmap dest;
     Bitmap overlay;
 
-    public OpacityAdapter(Context context) {
+    public AlphaAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         src = BitmapFactory.decodeResource(context.getResources(), R.drawable.sample);

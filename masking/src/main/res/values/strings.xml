@@ -4,5 +4,9 @@
     <string name="app_name">Masking</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_section1">Mask Opacity</string>
+    <string name="title_section2">Bitmap Mask</string>
+    <string name="title_section3">Shape Mask</string>
 
 </resources>
