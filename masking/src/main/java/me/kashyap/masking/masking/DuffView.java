@@ -15,7 +15,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by lenovo on 5/18/2014.
+ * Created on 5/18/2014.
  */
 public class DuffView extends View {
 
@@ -26,13 +26,9 @@ public class DuffView extends View {
     Bitmap dest;
     Bitmap overlay;
     PorterDuff.Mode mode;
+    float halfSize;
 
-    float matrixVqal [] = {
-            1,0,0,0,0,
-            0,1,0,0,0,
-            0,0,1,0,0,
-            0,0,0,1,255,
-    };
+    boolean isShapeMode;
 
     public DuffView(Context context) {
         this(context, null);
@@ -52,26 +48,36 @@ public class DuffView extends View {
         this.overlay = overlay;
     }
 
+    public void setShapeMode(boolean isShapeMode) {
+        this.isShapeMode = isShapeMode;
+        if(isShapeMode) {
+            oPaint.setColor(Color.BLACK);
+            oPaint.setStyle(Paint.Style.FILL);
+            oPaint.setAntiAlias(true);
+        }
+    }
+
     public void setMode(PorterDuff.Mode mode1, PorterDuff.Mode mode2) {
         mode = mode1;
-        paint.setXfermode(new PorterDuffXfermode(mode1));
-//        oPaint.setAlpha(0x99);
-        oPaint.setXfermode(new PorterDuffXfermode(mode2));
-//        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(new ColorMatrix(matrixVqal));
-//        paint.setColorFilter(filter);
-//        paint.setAlpha(0x99);
-//        anotherPaint.setAlpha(0x33);
+        oPaint.setXfermode(new PorterDuffXfermode(mode1));
+        paint.setXfermode(new PorterDuffXfermode(mode2));
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        halfSize = w < h ? w / 2 : h / 2;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        canvas.drawBitmap(overlay, 0, 0, anotherPaint);
-        canvas.drawBitmap(src,0,0, anotherPaint);
-//        canvas.drawARGB(128, 255, 0, 0);
-        canvas.drawColor(Color.RED, mode);
-        canvas.drawBitmap(dest, 0, 0, oPaint);
-//        canvas.drawBitmap(src,0,0, oPaint);
-//        canvas.drawColor(0xffff0000, PorterDuff.Mode.SRC_ATOP);
+        canvas.drawBitmap(src, 0, 0, null);
+        if (isShapeMode) {
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, halfSize, oPaint);
+        } else {
+            canvas.drawBitmap(dest, 0, 0, oPaint);
+        }
+        canvas.drawBitmap(overlay,0,0, paint);
     }
 }

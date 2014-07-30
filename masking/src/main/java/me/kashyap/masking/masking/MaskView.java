@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * Created by lenovo on 5/18/2014.
+ * Created on 5/18/2014.
  */
 public class MaskView extends View {
 

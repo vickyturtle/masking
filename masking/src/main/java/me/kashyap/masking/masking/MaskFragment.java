@@ -12,7 +12,7 @@ public class MaskFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        gridView.setAdapter(new DuffAdapter(getActivity()));
+        gridView.setAdapter(new DuffAdapter(getActivity(), false));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

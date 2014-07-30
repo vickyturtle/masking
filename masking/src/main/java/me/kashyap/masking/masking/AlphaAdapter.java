@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 /**
- * Created by lenovo on 7/3/2014.
+ * Created on 7/3/2014.
  */
 public class AlphaAdapter extends BaseAdapter {
 
@@ -67,6 +67,5 @@ public class AlphaAdapter extends BaseAdapter {
         ImageView imageView;
         MaskView maskView;
     }
-
 
 }
