@@ -8,5 +8,6 @@
     <string name="title_section1">Mask Opacity</string>
     <string name="title_section2">Bitmap Mask</string>
     <string name="title_section3">Shape Mask</string>
+    <string name="title_activity_my">MyActivity</string>
 
 </resources>

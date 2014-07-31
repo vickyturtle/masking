@@ -11,6 +11,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -21,12 +22,12 @@ public class DuffView extends View {
 
     Paint paint = new Paint();
     Paint oPaint = new Paint();
-    Paint anotherPaint = new Paint();
+
     Bitmap src;
     Bitmap dest;
     Bitmap overlay;
     PorterDuff.Mode mode;
-    float halfSize;
+    RectF shapeRect = new RectF();
 
     boolean isShapeMode;
 
@@ -51,7 +52,7 @@ public class DuffView extends View {
     public void setShapeMode(boolean isShapeMode) {
         this.isShapeMode = isShapeMode;
         if(isShapeMode) {
-            oPaint.setColor(Color.BLACK);
+            oPaint.setColor(Color.TRANSPARENT);
             oPaint.setStyle(Paint.Style.FILL);
             oPaint.setAntiAlias(true);
         }
@@ -66,18 +67,20 @@ public class DuffView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        halfSize = w < h ? w / 2 : h / 2;
+        shapeRect.set(50, 50, w - 50, h - 50);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawBitmap(src, 0, 0, null);
-        if (isShapeMode) {
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, halfSize, oPaint);
-        } else {
-            canvas.drawBitmap(dest, 0, 0, oPaint);
+        if(null != src) {
+            canvas.drawBitmap(src, 0, 0, null);
+            if (isShapeMode) {
+                canvas.drawRoundRect(shapeRect, 40, 40, oPaint);
+            } else {
+                canvas.drawBitmap(dest, 0, 0, oPaint);
+            }
+            canvas.drawBitmap(overlay, 0, 0, paint);
         }
-        canvas.drawBitmap(overlay,0,0, paint);
     }
 }
