@@ -52,7 +52,6 @@ public class DuffView extends View {
     public void setShapeMode(boolean isShapeMode) {
         this.isShapeMode = isShapeMode;
         if(isShapeMode) {
-            oPaint.setColor(Color.TRANSPARENT);
             oPaint.setStyle(Paint.Style.FILL);
             oPaint.setAntiAlias(true);
         }
@@ -60,6 +59,7 @@ public class DuffView extends View {
 
     public void setMode(PorterDuff.Mode mode1, PorterDuff.Mode mode2) {
         mode = mode1;
+
         oPaint.setXfermode(new PorterDuffXfermode(mode1));
         paint.setXfermode(new PorterDuffXfermode(mode2));
     }
@@ -73,14 +73,17 @@ public class DuffView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(null != src) {
-            canvas.drawBitmap(src, 0, 0, null);
+        if (null != src) {
+
             if (isShapeMode) {
+                canvas.drawBitmap(overlay, 0, 0, null);
                 canvas.drawRoundRect(shapeRect, 40, 40, oPaint);
+                canvas.drawBitmap(src, 0, 0, paint);
             } else {
+                canvas.drawBitmap(src, 0, 0, null);
                 canvas.drawBitmap(dest, 0, 0, oPaint);
+                canvas.drawBitmap(overlay, 0, 0, paint);
             }
-            canvas.drawBitmap(overlay, 0, 0, paint);
         }
     }
 }
